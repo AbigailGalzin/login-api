@@ -10,7 +10,7 @@ export class UserController {
     getUsers(): User[]{
         return this.userService.getUsers();
     }
-    @Get()
+    @Get(':username')
     getUser(@Param('username') username: string): User {
         return this.userService.getUser(username);
     }
