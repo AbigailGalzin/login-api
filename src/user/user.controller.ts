@@ -10,10 +10,12 @@ export class UserController {
     getUsers(): User[]{
         return this.userService.getUsers();
     }
+    
     @Get(':username')
     getUser(@Param('username') username: string): User {
         return this.userService.getUser(username);
     }
+
     @Post()
     createUser(@Body('username') username: string, @Body('message') message: string ) {
         return this.userService.createUser(username, message);
