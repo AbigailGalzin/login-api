@@ -7,14 +7,14 @@ import { CreateUserDto } from './dto/create-user.dto.ts/create-user.dto';
 export class UserController {
     constructor(private readonly userService: UserService){}
 
-    @Get()
-    getUsers(): User[]{
+    @Get('all')
+    getUsers(): Promise <User[]>{
         return this.userService.getUsers();
     }
     
-    @Get(':username')
-    getUser(@Param('username') username: string): User {
-        return this.userService.getUser(username);
+    @Get(':id')
+    getUser(@Param('id') id: number): Promise <User> {
+        return this.userService.getUser(id);
     }
 
     @Post()

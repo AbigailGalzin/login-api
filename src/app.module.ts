@@ -17,7 +17,7 @@ import { UserModule } from './modules/user/user.module';
       database: 'db_login',
       entities: [__dirname + '/**/*.entity{.ts,.js}'], // Ruta a las entidades de TypeORM en tu proyecto
       autoLoadEntities: true,
-      synchronize: false, // Sincronizar automáticamente las entidades con la base de datos (en entornos de desarrollo)
+      synchronize: true, // Sincronizar automáticamente las entidades con la base de datos (en entornos de desarrollo)
     }),   
     DatabaseModule, UserModule,
   ],
