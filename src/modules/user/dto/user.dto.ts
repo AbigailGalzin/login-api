@@ -1,12 +1,12 @@
 import { IsNumber, IsString } from "class-validator";
 
-export class CreateUserDto {
+export class UserDto {
     
     readonly id: number;
 
     @IsString()
     readonly username: string;
 
-    @IsString() //Esa propiedad tiene que existir obligatoriamente y ser string
+    @IsString()
     readonly password: string;    
 }

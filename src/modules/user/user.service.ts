@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user.entity';
-import { CreateUserDto } from './dto/create-user.dto.ts/create-user.dto';
+import { UserDto } from './dto/user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -18,17 +18,38 @@ export class UserService {
             throw new NotFoundException("User not found");
         }
         return user;
+    }    
+
+    createUser( newUser : User) {        
+        const id = Math.floor(Math.random() * 1000) + 1;
+        newUser.id = id;
+        const user = this.userRepository.create(newUser);
+        return this.userRepository.save(user);
     }
 
-    createUser( createUserDto : CreateUserDto) {        
-        const { username, password } = createUserDto;
-        const id = Math.floor(Math.random() * 100) + 1;
+    signInUser() {
+        
+    }
+
+    private async getUserByUsername(username: string){
+        const user = await this.userRepository.findOne( { where: {username}});        
+        return user;
+    }
+
+
+    logUser(userDto: any){
+        const { id, username, password } = userDto;
+        const user = this.getUserByUsername(username);
         const newUser: User = {
             id,
             username,
             password
         };
-        const user = this.userRepository.create(newUser);
-        return this.userRepository.save(user);
+        
+        return this.createUser(newUser);
+    }
+
+    private correctPassword(passwordBD: string, password: string): boolean{
+        return passwordBD === password;
     }
 }
